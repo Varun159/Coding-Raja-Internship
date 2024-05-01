@@ -6,15 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blog : Editor</title>
 
-        <link rel="stylesheet" href="CSS/home.css">
-        <link rel="stylesheet" href="CSS/editor.css">
+        <link rel="stylesheet" href="/CSS/home.css">
+        <link rel="stylesheet" href="/CSS/editor.css">
 
     </head>
     <body>
 
         <div class="banner">
             <input type="file" accept="image/*" id="banner-upload" hidden>
-            <label for="banner-upload" class="banner-upload-btn"><img src="img/editor-upload.png" alt="upload banner"></label>
+            <label for="banner-upload" class="banner-upload-btn"><img src="/img/editor-upload.png" alt="upload banner"></label>
         </div>
 
         <div class="Blog">
@@ -28,6 +28,10 @@
             <label for="image-upload" class="btn grey upload btn">Upload Image</label>
         </div>
 
+        <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js"></script>
+
+        <script src="/Js/firebase.js"></script>
         <script src="/Js/editor.js"></script>
         
     </body>

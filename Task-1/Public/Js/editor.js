@@ -33,16 +33,47 @@ const uploadImage = (uploadFile, uploadType) => {
             } else {
                 bannerPath = `${location.origin}/${data}`;
                 banner.style.backgroundImage = `url("${bannerPath}")`;
-            }
-           
+            }  
         })
+    } else {
+        alert("upload Image only");
     }
 }
 
 const addImage = (imagepath, alt) => {
     let curPos = articleField.selectionStart;
     let textToInsert = `\r![${alt}](${imagepath})\r`;
-    articleField.value  = articleField.value.slice(0, curPos) + textToInsert +
-    articleField.value.slice(curPos);
-
+    articleField.value  = articleField.value.slice(0, curPos) + textToInsert + articleField.value.slice(curPos);
 }
+
+let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+publishBtn.addEventListener('click', () => {
+    if(articleField.value.length && blogTitleField.value.length){
+        //generating id
+        let letters = 'abcdefghijklmnopqrstuvwxyz';
+        let blogTitle = blogTitleField.value.split(" ").join("-");
+        let id = ' ';
+        for(let i = 0; i < 4; i++){
+        id += letters[Math.floor(Math.random() *  letters.length)];
+        }
+
+        //setting up DocName
+        let DocName = `${blogTitle}-${id}`;
+        let data = new Date(); //for published at info
+
+        //access firestore with db variable;
+        db.collection("blogs").doc(DocName).set({
+            title: blogTitleField.value,
+            article: articleField.value,
+            bannerImage: bannerPath,
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${Date.getFullYear()}`
+        }) 
+        .then(() => {
+            console.log('date entered');
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+    }
+})
