@@ -18,7 +18,7 @@ app.get('/editor', (req, res) => {
 
 // upload link
 app.post('/upload',(req, res) => {
-    let file = req.file.image;
+    let file = req.files.image;
     let date = new Date();
     // image name
     let imagename = date.getDate() + date.getTime() + file.name;
