@@ -46,34 +46,35 @@ const addImage = (imagepath, alt) => {
     articleField.value  = articleField.value.slice(0, curPos) + textToInsert + articleField.value.slice(curPos);
 }
 
-let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-publishBtn.addEventListener('click', () => {
+
     if(articleField.value.length && blogTitleField.value.length){
-        //generating id
+        publishBtn.addEventListener('click', () => {
+        // generating id
         let letters = 'abcdefghijklmnopqrstuvwxyz';
         let blogTitle = blogTitleField.value.split(" ").join("-");
-        let id = ' ';
+        let id = '';
         for(let i = 0; i < 4; i++){
-        id += letters[Math.floor(Math.random() *  letters.length)];
+            id += letters[Math.floor(Math.random() * letters.length)];
         }
 
-        //setting up DocName
-        let DocName = `${blogTitle}-${id}`;
-        let data = new Date(); //for published at info
+        // setting up docName
+        let docName = `${blogTitle}-${id}`;
+        let date = new Date(); // for published at info
 
-        //access firestore with db variable;
-        db.collection("blogs").doc(DocName).set({
+        //access firstore with db variable;
+        db.collection("blogs").doc(docName).set({
             title: blogTitleField.value,
             article: articleField.value,
             bannerImage: bannerPath,
-            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${Date.getFullYear()}`
-        }) 
+            publishedAt: `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+        })
         .then(() => {
-            console.log('date entered');
+            location.href = `/${docName}`;
         })
         .catch((err) => {
             console.error(err);
         })
-    }
-})
+    })
+}
